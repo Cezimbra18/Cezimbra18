@@ -4,7 +4,7 @@
 - 💞️ I’m looking to collaborate on everthing where I can learn something.
 - 📫 How to reach me gabrielcezimbraofice@gmail.com
 - 😄 Pronouns: he/him
-- ⚡ Fun fact: I don't use github if you want to see my projects go to my codeberg Gabe_18 :)
+- ⚡ Fun fact: I love E-Races :)
 
 <!---
 Cezimbra18/Cezimbra18 is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
