@@ -11,7 +11,7 @@ import java.util.Scanner;
  * Main class
  */
 public class Main {
-    private int[][] structElements = new int[2][2];
+    private static int[][] structElements = new int[3][3];
 
     /**
      * Method Main, here we call other methods which are responsable to process things
@@ -23,13 +23,16 @@ public class Main {
         BufferedImage grayimage = grayScaleImage(image);
         showImage(image, "Original image");
         showImage(grayimage, "Gray image ");
+        setStructElements(getStructElements());
+        BufferedImage resultImage = dilateImage(grayimage, getStructElements());
+        showImage(resultImage, "Final image ");
     }
 
     /**
      * Get the elements of structElements
      * @return the object structElements
      */
-    public int[][] getStructElements() {
+    public static int[][] getStructElements() {
         return structElements;
     }
 
@@ -37,13 +40,16 @@ public class Main {
      * Set the elemets of structElements
      * @param structElements structure to manipulate
      */
-    public void setStructElements(int[][] structElements){
+    public static void setStructElements(int[][] structElements){
         Scanner sc = new Scanner(System.in);
         for(int i = 0; i < structElements.length; i++){
             for(int j = 0; j < structElements[i].length; j++){
-                System.out.printf("Type the value for place [%d][%d]", i, j);
+                System.out.printf("Type the value for place [%d][%d] = ", i, j);
                 structElements[i][j] = sc.nextInt();
+
+                System.out.printf(structElements[i][j] + " isso");
             }
+        System.out.printf("acabo");
         }
     }
 
@@ -63,7 +69,7 @@ public class Main {
      * Load image
      */
     public static BufferedImage loadImage() throws IOException {
-        BufferedImage image = ImageIO.read(new File("/home/cezimbra/Área de Trabalho/Faculdade/4_Grade/PID/Trabalho_1/Dilatacao/DilatacaoPid/src/resources/BMW.jpg"));
+        BufferedImage image = ImageIO.read(new File("/home/cezimbra/Área de Trabalho/Faculdade/4_Grade/PID/Trabalho_1/Cezimbra18/Dilatacao/DilatacaoPid/src/resources/BMW.jpg"));
 
         return image;
     }
@@ -83,7 +89,43 @@ public class Main {
         frame.setVisible(true);
     }
 
-    public static void dilateImage(BufferedImage image, int[][] StructElement) {
+    /**
+     * Dilate the image
+     * @param image image which will be dilated
+     * @param StructElement used to dilate the image
+     */
+    public static BufferedImage dilateImage(BufferedImage image, int[][] StructElement) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+        BufferedImage resultImage= new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
 
+        int centerX = StructElement[0].length / 2;
+        int centerY = StructElement.length / 2;
+
+        for(int y = 0; y < height; y++){
+            for(int x = 0; x < width; x++){
+
+                int biggerValue = 0;
+
+                for(int i = 0; i < StructElement.length; i++){
+                    for(int j = 0; j < StructElement[0].length; j++){
+                        if(StructElement[i][j] == 1){
+                            int positionX = x + (j - centerX);
+                            int positionY = y + (i - centerY);
+
+                            if (positionX >= 0 && positionY >= 0 && positionX < width && positionY < height) {
+                                int pixelValue = new Color(image.getRGB(positionX, positionY)).getRed();
+                                if(pixelValue > biggerValue){
+                                    biggerValue = pixelValue;
+                                }
+                            }
+                        }
+                    }
+                }
+                Color newColor = new Color(biggerValue, biggerValue, biggerValue);
+                resultImage.setRGB(x, y, newColor.getRGB());
+            }
+        }
+        return resultImage;
     }
 }
