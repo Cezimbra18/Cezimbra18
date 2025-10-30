@@ -11,7 +11,7 @@ import java.util.Scanner;
  * Main class
  */
 public class Main {
-    private static int[][] structElements = new int[3][3];
+    private static int[][] structElements = new int[5][5];
 
     /**
      * Method Main, here we call other methods which are responsable to process things
@@ -41,16 +41,20 @@ public class Main {
      * @param structElements structure to manipulate
      */
     public static void setStructElements(int[][] structElements){
-        Scanner sc = new Scanner(System.in);
-        for(int i = 0; i < structElements.length; i++){
-            for(int j = 0; j < structElements[i].length; j++){
-                System.out.printf("Type the value for place [%d][%d] = ", i, j);
-                structElements[i][j] = sc.nextInt();
+        int[][] generic = {
+                {1, 1, 1, 1, 1},
+                {1, 1, 1, 1, 1},
+                {1, 1, 1, 1, 1},
+                {1, 1, 1, 1, 1},
+                {1, 1, 1, 1, 1}
+        };
 
-                System.out.printf(structElements[i][j] + " isso");
+        for (int i = 0; i < structElements.length; i++) {
+            for (int j = 0; j < structElements[i].length; j++) {
+                structElements[i][j] = generic[i][j];
             }
-        System.out.printf("acabo");
         }
+
     }
 
     /**
