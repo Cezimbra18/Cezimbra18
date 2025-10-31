@@ -4,8 +4,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLOutput;
-import java.util.Scanner;
 
 /**
  * Main class
@@ -42,11 +40,11 @@ public class Main {
      */
     public static void setStructElements(int[][] structElements){
         int[][] generic = {
-                {1, 1, 1, 1, 1},
-                {1, 1, 1, 1, 1},
-                {1, 1, 1, 1, 1},
-                {1, 1, 1, 1, 1},
-                {1, 1, 1, 1, 1}
+                {0, 0, 1, 0, 0},
+                {0, 1, 1, 0, 0},
+                {0, 1, 1, 0, 0},
+                {0, 1, 1, 0, 0},
+                {0, 1, 1, 0, 0}
         };
 
         for (int i = 0; i < structElements.length; i++) {
@@ -73,7 +71,7 @@ public class Main {
      * Load image
      */
     public static BufferedImage loadImage() throws IOException {
-        BufferedImage image = ImageIO.read(new File("/home/cezimbra/Área de Trabalho/Faculdade/4_Grade/PID/Trabalho_1/Cezimbra18/Dilatacao/DilatacaoPid/src/resources/BMW.jpg"));
+        BufferedImage image = ImageIO.read(new File("/home/cezimbra/Área de Trabalho/Faculdade/4_Grade/PID/Trabalho_1/Cezimbra18/Dilatacao/DilatacaoPid/src/resources/D.jpg"));
 
         return image;
     }
@@ -109,7 +107,7 @@ public class Main {
         for(int y = 0; y < height; y++){
             for(int x = 0; x < width; x++){
 
-                int biggerValue = 0;
+                int smallValue = 255;
 
                 for(int i = 0; i < StructElement.length; i++){
                     for(int j = 0; j < StructElement[0].length; j++){
@@ -119,14 +117,14 @@ public class Main {
 
                             if (positionX >= 0 && positionY >= 0 && positionX < width && positionY < height) {
                                 int pixelValue = new Color(image.getRGB(positionX, positionY)).getRed();
-                                if(pixelValue > biggerValue){
-                                    biggerValue = pixelValue;
+                                if(pixelValue < smallValue){
+                                    smallValue = pixelValue;
                                 }
                             }
                         }
                     }
                 }
-                Color newColor = new Color(biggerValue, biggerValue, biggerValue);
+                Color newColor = new Color(smallValue, smallValue, smallValue);
                 resultImage.setRGB(x, y, newColor.getRGB());
             }
         }
